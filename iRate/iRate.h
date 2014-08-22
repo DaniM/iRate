@@ -29,7 +29,7 @@
 //
 //  3. This notice may not be removed or altered from any source distribution.
 //
-
+#include "TargetConditionals.h"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wobjc-missing-property-synthesis"
@@ -38,14 +38,14 @@
 #import <Availability.h>
 #undef weak_delegate
 #if __has_feature(objc_arc_weak) && \
-(TARGET_OS_IPHONE || __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
+(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR || __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
 #define weak_delegate weak
 #else
 #define weak_delegate unsafe_unretained
 #endif
 
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
